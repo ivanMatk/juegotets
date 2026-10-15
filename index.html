@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarmiento Test | Historias de San Francisco</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header>
+        <h1>SARMIENTO TEST</h1>
+
+        <p>
+            Encuentra las parejas y descubre las historias
+            que forman parte de nuestra memoria.
+        </p>
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             INFORMACIÓN DEL JUEGO
+        ========================== -->
+
+        <section id="informacion-juego"
+                 aria-label="Información del juego">
+
+            <p>
+                Movimientos:
+                <span id="movimientos">0</span>
+            </p>
+
+            <p>
+                Parejas encontradas:
+                <span id="parejas-encontradas">0</span> / 6
+            </p>
+
+            <button id="reiniciar-juego" type="button">
+                Reiniciar juego
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             TABLERO DE MEMORIA
+        ========================== -->
+
+        <section id="tablero-memoria"
+                 aria-label="Tablero de imágenes">
+
+
+            <!-- PAREJA 1: BALNEARIO -->
+
+            <button class="carta"
+                    data-id="balneario"
+                    type="button"
+                    aria-label="Descubrir carta del balneario">
+
+                <img src="imagenes/balneario.jpg"
+                     alt="Balneario"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="balneario"
+                    type="button"
+                    aria-label="Descubrir carta del balneario">
+
+                <img src="imagenes/balneario.jpg"
+                     alt="Balneario"
+                     loading="eager">
+            </button>
+
+
+            <!-- PAREJA 2: CINE -->
+
+            <button class="carta"
+                    data-id="cine"
+                    type="button"
+                    aria-label="Descubrir carta del cine">
+
+                <img src="imagenes/cine.jpg"
+                     alt="Antiguo cine"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="cine"
+                    type="button"
+                    aria-label="Descubrir carta del cine">
+
+                <img src="imagenes/cine.jpg"
+                     alt="Antiguo cine"
+                     loading="eager">
+            </button>
+
+
+            <!-- PAREJA 3: ELISA -->
+
+            <button class="carta"
+                    data-id="elisa"
+                    type="button"
+                    aria-label="Descubrir carta de Elisa">
+
+                <img src="imagenes/elisa.jpg"
+                     alt="Elisa"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="elisa"
+                    type="button"
+                    aria-label="Descubrir carta de Elisa">
+
+                <img src="imagenes/elisa.jpg"
+                     alt="Elisa"
+                     loading="eager">
+            </button>
+
+
+            <!-- PAREJA 4: MONUMENTO -->
+
+            <button class="carta"
+                    data-id="monumento"
+                    type="button"
+                    aria-label="Descubrir carta del monumento">
+
+                <img src="imagenes/monumento.jpg"
+                     alt="Monumento histórico"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="monumento"
+                    type="button"
+                    aria-label="Descubrir carta del monumento">
+
+                <img src="imagenes/monumento.jpg"
+                     alt="Monumento histórico"
+                     loading="eager">
+            </button>
+
+
+            <!-- PAREJA 5: MUSEO -->
+
+            <button class="carta"
+                    data-id="museo"
+                    type="button"
+                    aria-label="Descubrir carta del museo">
+
+                <img src="imagenes/museo.jpg"
+                     alt="Museo histórico"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="museo"
+                    type="button"
+                    aria-label="Descubrir carta del museo">
+
+                <img src="imagenes/museo.jpg"
+                     alt="Museo histórico"
+                     loading="eager">
+            </button>
+
+
+            <!-- PAREJA 6: PLAZA -->
+
+            <button class="carta"
+                    data-id="plaza"
+                    type="button"
+                    aria-label="Descubrir carta de la plaza">
+
+                <img src="imagenes/plaza.jpg"
+                     alt="Plaza de la ciudad"
+                     loading="eager">
+            </button>
+
+            <button class="carta"
+                    data-id="plaza"
+                    type="button"
+                    aria-label="Descubrir carta de la plaza">
+
+                <img src="imagenes/plaza.jpg"
+                     alt="Plaza de la ciudad"
+                     loading="eager">
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             VENTANA DE LAS HISTORIAS
+        ========================== -->
+
+        <dialog id="modal-historia"
+                aria-labelledby="titulo-historia">
+
+            <!-- Botón para cerrar -->
+
+            <button id="cerrar-historia"
+                    type="button"
+                    aria-label="Cerrar historia">
+
+                &times;
+
+            </button>
+
+
+            <!-- Imagen de la historia -->
+
+            <img id="imagen-historia"
+                 src=""
+                 alt="Imagen histórica">
+
+
+            <!-- Título dinámico -->
+
+            <h2 id="titulo-historia">
+                Historia de la imagen
+            </h2>
+
+
+            <!-- Texto dinámico -->
+
+            <div id="contenido-historia">
+
+                <p id="texto-historia">
+                    Aquí aparecerá la historia de la pareja encontrada.
+                </p>
+
+            </div>
+
+
+            <!-- Continuar jugando -->
+
+            <button id="continuar-juego" type="button">
+                Continuar jugando
+            </button>
+
+        </dialog>
+
+
+        <!-- =========================
+             FINAL DEL JUEGO
+        ========================== -->
+
+        <section id="mensaje-final"
+                 aria-live="polite"
+                 hidden>
+
+            <h2>¡Felicitaciones!</h2>
+
+            <p>
+                Encontraste las seis parejas y recorriste
+                seis historias de nuestra memoria.
+            </p>
+
+            <p>
+                Gracias por jugar a Sarmiento Test.
+            </p>
+
+            <button id="jugar-de-nuevo" type="button">
+                Volver a jugar
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         PIE DE PÁGINA
+    ========================== -->
+
+    <footer>
+        <p>
+            SARMIENTO TEST
+        </p>
+
+        <p>
+            Seis imágenes, seis historias, una memoria compartida.
+        </p>
+    </footer>
+
+
+    <!-- =========================
+         CONEXIÓN CON JAVASCRIPT
+    ========================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
