@@ -1,6 +1,8 @@
-/* ==========================
-   1. CONFIGURACIÓN GENERAL
-========================== */
+
+/* ==========================================
+   SARMIENTO MEMORY
+   CSS COMPLETO Y RESPONSIVE
+========================================== */
 
 *,
 *::before,
@@ -11,87 +13,89 @@
 }
 
 :root {
-    --azul-francia: #318CE7;
-    --azul-profundo: #102A56;
-    --azul-oscuro: #153E75;
-    --celeste: #A9D6F5;
+    --azul-francia: #367BFF;
+    --azul-profundo: #142B5F;
+    --azul-oscuro: #203F83;
+    --celeste: #25D9C3;
     --blanco: #FFFFFF;
-    --dorado: #F2C879;
+    --dorado: #FFD166;
     --texto: #183153;
+    --violeta: #8B5CF6;
+    --fondo-carta: #2456B8;
+    --borde-claro: #B9F7EF;
+    --panel: rgba(20, 43, 95, 0.92);
+    --sombra: rgba(0, 0, 0, 0.30);
 }
 
 html {
     width: 100%;
     min-height: 100%;
+    color-scheme: light;
 }
 
 body {
     min-height: 100vh;
     min-height: 100dvh;
-
     font-family: "Segoe UI", Arial, sans-serif;
     color: var(--blanco);
-
     background-color: var(--azul-profundo);
-
-    background-image:
-        linear-gradient(
-            rgba(8, 28, 60, 0.35),
-            rgba(8, 28, 60, 0.55)
-        ),
-        url("imagenes/capitansarmiento.jpg");
-
+    background-image: url("imagenes/capitansarmiento.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-
     padding: 12px 30px;
-
     overflow-x: hidden;
 }
 
 img {
+    display: block;
     max-width: 100%;
 }
 
+button {
+    font: inherit;
+    cursor: pointer;
+    touch-action: manipulation;
+}
 
-/* ==========================
-   2. ENCABEZADO
-========================== */
+button:focus-visible {
+    outline: 3px solid var(--dorado);
+    outline-offset: 4px;
+}
+
+/* ENCABEZADO */
 
 header {
+    width: 100%;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 header h1 {
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 900;
     letter-spacing: 2px;
     line-height: 1.2;
-
+    margin-bottom: 6px;
     color: var(--blanco);
-
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-
-    margin-bottom: 4px;
+    text-shadow:
+        0 3px 5px rgba(0, 0, 0, 0.85),
+        0 0 16px rgba(54, 123, 255, 0.65);
 }
 
 header p {
-    font-size: clamp(0.8rem, 1.5vw, 1rem);
-    line-height: 1.4;
-
-    color: #E5F3FF;
-    letter-spacing: 0.5px;
-
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    line-height: 1.5;
+    color: var(--blanco);
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.95),
+        0 0 8px rgba(0, 0, 0, 0.55);
 }
 
-
-/* ==========================
-   3. CONTENEDOR PRINCIPAL
-========================== */
+/* CONTENEDOR PRINCIPAL */
 
 main {
     width: 100%;
@@ -99,60 +103,57 @@ main {
     margin: 0 auto;
 }
 
-
-/* ==========================
-   4. INFORMACIÓN DEL JUEGO
-========================== */
+/* INFORMACIÓN DEL JUEGO */
 
 #informacion-juego {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin-bottom: 12px;
-    padding: 9px;
-
-    background: rgba(16, 42, 86, 0.82);
-
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 10px;
+    background: var(--panel);
+    border: 1px solid var(--celeste);
+    border-radius: 14px;
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-
-    box-shadow: 0 5px 15px rgba(5, 24, 55, 0.2);
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.25),
+        0 0 12px rgba(37, 217, 195, 0.12);
 }
 
 #informacion-juego p {
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    padding: 7px 10px;
-
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blanco);
     background: rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 9px;
 }
 
 #movimientos,
 #parejas-encontradas {
-    color: var(--dorado);
-    font-weight: 800;
     margin-left: 4px;
+    color: var(--dorado);
+    font-weight: 900;
 }
 
+/* BOTONES */
 
-/* ==========================
-   5. BOTONES
-========================== */
-
-button {
-    font-family: inherit;
-    cursor: pointer;
-    touch-action: manipulation;
-
+#reiniciar-juego,
+#continuar-juego,
+#jugar-de-nuevo {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 9px 16px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 800;
     transition:
         transform 0.2s ease,
         background-color 0.2s ease,
@@ -160,363 +161,424 @@ button {
 }
 
 #reiniciar-juego,
-#continuar-juego,
 #jugar-de-nuevo {
-    min-height: 42px;
-
-    border: none;
-    border-radius: 9px;
-
-    padding: 8px 14px;
-
     color: var(--azul-profundo);
-    background: var(--dorado);
-
-    font-size: 0.85rem;
-    font-weight: 700;
-
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #FFE08A, #FFB84D);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
 }
 
 #reiniciar-juego:hover,
-#continuar-juego:hover,
 #jugar-de-nuevo:hover {
-    background: #FFE2A3;
+    background: linear-gradient(135deg, #FFF0B8, #FFD166);
     transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.3);
+}
 
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+#continuar-juego {
+    min-width: 160px;
+    color: var(--blanco);
+    background: linear-gradient(135deg, #367BFF, #6548E8);
+    box-shadow: 0 4px 12px rgba(54, 123, 255, 0.22);
+}
+
+#continuar-juego:hover {
+    background: linear-gradient(135deg, #245FE0, #5034D1);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(54, 123, 255, 0.3);
 }
 
 button:active {
     transform: scale(0.98);
 }
 
-button:focus-visible {
-    outline: 3px solid var(--dorado);
-    outline-offset: 3px;
-}
-
 button:disabled {
-    opacity: 0.55;
+    opacity: 0.65;
     cursor: not-allowed;
 }
 
-
-/* ==========================
-   6. TABLERO
-   6 COLUMNAS Y 2 FILAS
-========================== */
+/* TABLERO: SEIS COLUMNAS Y DOS FILAS */
 
 #tablero-memoria {
     display: grid;
-
     grid-template-columns: repeat(6, minmax(0, 1fr));
     grid-auto-flow: row;
-
     gap: clamp(6px, 1.2vw, 12px);
-
     width: 100%;
     max-width: 1100px;
-
-    margin: 0 auto 12px;
-
+    margin: 0 auto 16px;
     justify-content: center;
-    align-items: center;
-
+    align-items: stretch;
     perspective: 1000px;
 }
 
-
-/* ==========================
-   7. CARTAS
-========================== */
+/* CARTAS */
 
 .carta {
     position: relative;
-
+    isolation: isolate;
     display: block;
-
     width: 100%;
     min-width: 0;
-
+    min-height: 0;
     aspect-ratio: 3 / 4;
-
+    padding: 0;
     overflow: hidden;
-
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: clamp(4px, 1vw, 12px);
-
+    border: 2px solid var(--borde-claro);
+    border-radius: clamp(5px, 1vw, 12px);
     background: linear-gradient(
-        145deg,
-        #5BA9EE,
-        #174F91
+        135deg,
+        #367BFF 0%,
+        #6548E8 50%,
+        #2456B8 100%
     );
-
     box-shadow:
-        0 4px 10px rgba(5, 24, 55, 0.3),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.08);
-
+        0 5px 12px rgba(0, 0, 0, 0.28),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+        0 0 8px rgba(37, 217, 195, 0.15);
     transform-style: preserve-3d;
-
     -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
 .carta::before {
     content: "?";
-
     position: absolute;
     inset: 0;
-    z-index: 1;
-
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: var(--blanco);
-
-    font-size: clamp(0.8rem, 3vw, 2.5rem);
-    font-weight: 800;
-
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-
+    font-size: clamp(1rem, 3vw, 2.5rem);
+    font-weight: 900;
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.35),
+        0 0 12px rgba(37, 217, 195, 0.65);
     pointer-events: none;
-
-    transition: opacity 0.3s ease;
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
 }
 
 .carta img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     display: block;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
     object-position: center;
-
     opacity: 0;
-
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
 }
 
+/* CARTAS VOLTEADAS */
 
-/* ==========================
-   8. EFECTOS DE LAS CARTAS
-========================== */
-
-.carta:hover:not(.encontrada) {
-    transform: translateY(-2px);
-
-    box-shadow: 0 7px 14px rgba(5, 24, 55, 0.4);
-
-    border-color: var(--dorado);
+.carta.volteada {
+    border-color: var(--blanco);
+    box-shadow:
+        0 0 12px rgba(54, 123, 255, 0.55),
+        0 5px 14px rgba(0, 0, 0, 0.3);
 }
 
-.carta.volteada img,
+.carta.volteada img {
+    opacity: 1;
+}
+
+.carta.volteada::before {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+/* PAREJAS ENCONTRADAS */
+
+.carta.encontrada {
+    border: 3px solid var(--dorado);
+    cursor: default;
+    box-shadow:
+        0 0 8px rgba(255, 209, 102, 0.95),
+        0 0 20px rgba(255, 209, 102, 0.42),
+        0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
 .carta.encontrada img {
     opacity: 1;
 }
 
-.carta.volteada::before,
 .carta.encontrada::before {
     opacity: 0;
-}
-
-.carta.encontrada {
-    border-color: var(--dorado);
-
-    box-shadow: 0 0 12px rgba(242, 200, 121, 0.6);
-
-    cursor: default;
+    transform: scale(0.7);
 }
 
 .carta.encontrada:hover {
     transform: none;
 }
 
-.carta:focus-visible {
-    outline: 3px solid var(--dorado);
-    outline-offset: 3px;
+.carta.encontrada::after {
+    content: "✓";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: clamp(18px, 2.5vw, 28px);
+    height: clamp(18px, 2.5vw, 28px);
+    color: var(--azul-profundo);
+    background: var(--dorado);
+    border-radius: 50%;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* FRAGMENTOS DEL ROMPECABEZAS */
 
-/* ==========================
-   9. VENTANA DE HISTORIA
-========================== */
+.carta.pieza-rompecabezas {
+    background-image: url("imagenes/capitansarmiento.jpg");
+    background-repeat: no-repeat;
+    background-size: 600% 200%;
+    background-position:
+        var(--pieza-x, 0%)
+        var(--pieza-y, 0%);
+    border: 2px solid rgba(255, 209, 102, 0.9);
+    box-shadow:
+        0 0 8px rgba(255, 209, 102, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    cursor: default;
+}
+
+.carta.pieza-rompecabezas img {
+    opacity: 0;
+}
+
+.carta.pieza-rompecabezas::before {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.carta.pieza-rompecabezas::after {
+    content: "✓";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: clamp(14px, 2vw, 23px);
+    height: clamp(14px, 2vw, 23px);
+    color: var(--azul-profundo);
+    background: var(--dorado);
+    border-radius: 50%;
+    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+    font-weight: 900;
+}
+
+/* VENTANA DE HISTORIAS */
 
 #modal-historia {
+    position: fixed;
     width: min(90%, 560px);
-
     max-height: 85vh;
     max-height: 85dvh;
-
+    overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
-
     margin: auto;
     padding: 24px;
-
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--celeste);
     border-radius: 20px;
-
     color: var(--texto);
-
-    background: linear-gradient(
-        160deg,
-        #FFFFFF,
-        #E7F4FF
-    );
-
-    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.4);
-
+    background: linear-gradient(160deg, #FFFFFF, #E7F4FF);
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(37, 217, 195, 0.15);
     text-align: center;
+}
+
+#modal-historia[open] {
+    animation: aparecer-modal 0.3s ease both;
 }
 
 #modal-historia::backdrop {
     background: rgba(5, 20, 48, 0.78);
-
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+}
+
+@keyframes aparecer-modal {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 #cerrar-historia {
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin-left: auto;
     margin-bottom: 8px;
-
-    width: 40px;
-    height: 40px;
-
+    width: 42px;
+    height: 42px;
     border: none;
     border-radius: 50%;
-
     background: #D9EBFA;
     color: var(--azul-profundo);
-
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     line-height: 1;
 }
 
 #cerrar-historia:hover {
     background: var(--celeste);
+    transform: rotate(5deg);
 }
 
 #imagen-historia {
     display: block;
-
     width: 100%;
-    max-height: 240px;
-
+    max-height: 260px;
     object-fit: cover;
-
+    object-position: center;
     border-radius: 14px;
     margin-bottom: 16px;
-
     box-shadow: 0 6px 15px rgba(16, 42, 86, 0.2);
 }
 
 #titulo-historia {
     color: var(--azul-oscuro);
-
     font-size: clamp(1.4rem, 4vw, 2rem);
-
+    line-height: 1.25;
     margin-bottom: 12px;
 }
 
 #contenido-historia {
     text-align: left;
-
-    line-height: 1.7;
-    font-size: 0.95rem;
-
+    line-height: 1.75;
+    font-size: 0.96rem;
     color: #344B67;
-
     overflow-wrap: anywhere;
-
     margin-bottom: 20px;
 }
 
-#continuar-juego {
-    background: var(--azul-francia);
-    color: var(--blanco);
+#contenido-historia p {
+    margin-bottom: 10px;
 }
 
-#continuar-juego:hover {
-    background: var(--azul-oscuro);
-}
-
-
-/* ==========================
-   10. MENSAJE FINAL
-========================== */
-
-#mensaje-final {
-    width: 100%;
-    max-width: 900px;
-
-    text-align: center;
-
-    padding: 22px 16px;
-    margin: 16px auto;
-
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 18px;
-
-    background: rgba(16, 42, 86, 0.82);
-
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-
-    box-shadow: 0 8px 24px rgba(5, 24, 55, 0.3);
-}
+/* MENSAJE FINAL */
 
 #mensaje-final[hidden] {
     display: none;
 }
 
+#mensaje-final {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 26px 18px;
+    margin: 18px auto;
+    border: 2px solid var(--celeste);
+    border-radius: 20px;
+    background: var(--panel);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 18px rgba(37, 217, 195, 0.15);
+    animation: aparecer-final 0.6s ease both;
+}
+
+@keyframes aparecer-final {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 #mensaje-final h2 {
     color: var(--dorado);
-
-    font-size: 1.7rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     line-height: 1.3;
-
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 12px rgba(255, 209, 102, 0.25);
 }
 
 #mensaje-final p {
     margin-bottom: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
+#mensaje-final #jugar-de-nuevo {
+    margin-top: 4px;
+}
 
-/* ==========================
-   11. PIE DE PÁGINA
-========================== */
+/* FOTOGRAFÍA FINAL EN GRANDE */
+
+#imagen-final {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    max-height: 65vh;
+    max-height: 65dvh;
+    object-fit: contain;
+    margin: 0 auto 20px;
+    border: 3px solid var(--dorado);
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow:
+        0 0 15px rgba(255, 209, 102, 0.5),
+        0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* PIE DE PÁGINA */
 
 footer {
     text-align: center;
-
-    padding: 8px 5px 0;
-
+    padding: 10px 5px 0;
     color: var(--blanco);
-    font-size: 0.8rem;
-    line-height: 1.5;
-
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.95),
+        0 0 8px rgba(0, 0, 0, 0.55);
 }
 
+footer p:first-child {
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
 
-/* ==========================
-   12. TABLETS
-========================== */
+/* EFECTOS EN COMPUTADORAS */
+
+@media (hover: hover) and (pointer: fine) {
+    .carta:hover:not(.encontrada):not(.pieza-rompecabezas) {
+        transform: translateY(-3px);
+        border-color: var(--dorado);
+        box-shadow:
+            0 0 15px rgba(37, 217, 195, 0.5),
+            0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* TABLETS */
 
 @media (min-width: 601px) and (max-width: 900px) {
-
     body {
-        padding: 12px 30px;
+        padding: 12px 20px;
         background-attachment: scroll;
     }
 
@@ -528,123 +590,95 @@ footer {
     .carta {
         border-width: 1px;
     }
+
+    .carta.encontrada,
+    .carta.pieza-rompecabezas {
+        border-width: 2px;
+    }
 }
 
-
-/* ==========================
-   13. CELULARES
-   DISEÑO RESPONSIVE
-========================== */
+/* CELULARES */
 
 @media (max-width: 600px) {
-
     body {
         padding: 10px 12px;
-
         background-attachment: scroll;
         background-position: center top;
     }
 
     header {
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     header h1 {
-        font-size: clamp(1.2rem, 5.5vw, 1.8rem);
+        font-size: clamp(1.3rem, 5.5vw, 1.9rem);
         letter-spacing: 1px;
         overflow-wrap: anywhere;
     }
 
     header p {
-        font-size: 0.8rem;
-        line-height: 1.45;
+        font-size: 0.82rem;
+        line-height: 1.5;
     }
 
-    /* Información del juego */
-
     #informacion-juego {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-
-        gap: 5px;
-
-        padding: 7px;
-        margin-bottom: 10px;
-
-        border-radius: 9px;
+        gap: 6px;
+        padding: 8px;
+        margin-bottom: 12px;
+        border-radius: 11px;
     }
 
     #informacion-juego p {
-        font-size: 0.72rem;
-        padding: 6px;
+        font-size: 0.74rem;
+        padding: 7px;
     }
-
-    /* Botones adaptados al tacto */
 
     #reiniciar-juego,
     #continuar-juego,
     #jugar-de-nuevo {
         min-height: 42px;
-
-        padding: 8px 10px;
-
-        font-size: 0.75rem;
+        padding: 8px 11px;
+        font-size: 0.76rem;
     }
-
-    /* Tablero: siempre 6 columnas */
 
     #tablero-memoria {
-        display: grid;
-
         grid-template-columns: repeat(6, minmax(0, 1fr));
-        grid-auto-flow: row;
-
         gap: clamp(3px, 1.2vw, 6px);
-
         width: 100%;
         max-width: 100%;
-
-        margin: 0 auto 10px;
+        margin: 0 auto 12px;
     }
 
-    /* Cartas más pequeñas */
-
     .carta {
-        width: 100%;
-        min-width: 0;
-
         aspect-ratio: 3 / 4;
-
         border-width: 1px;
-        border-radius: 4px;
+        border-radius: 5px;
     }
 
     .carta::before {
-        font-size: clamp(0.6rem, 4vw, 1.2rem);
+        font-size: clamp(0.65rem, 4vw, 1.25rem);
     }
 
-    /* Evitar efectos hover pegados en pantallas táctiles */
-
-    .carta:hover:not(.encontrada) {
-        transform: none;
+    .carta.encontrada,
+    .carta.pieza-rompecabezas {
+        border-width: 2px;
     }
 
-    .carta:active:not(.encontrada) {
+    .carta.encontrada::after,
+    .carta.pieza-rompecabezas::after {
+        top: 2px;
+        right: 2px;
+    }
+
+    .carta:active:not(.encontrada):not(.pieza-rompecabezas) {
         transform: scale(0.97);
     }
 
-    /* Modal */
-
     #modal-historia {
         width: 94%;
-
         max-height: 85vh;
         max-height: 85dvh;
-
         padding: 16px;
-
         border-radius: 16px;
     }
 
@@ -654,59 +688,60 @@ footer {
     }
 
     #imagen-historia {
-        max-height: 180px;
+        max-height: 190px;
         margin-bottom: 12px;
     }
 
     #titulo-historia {
-        font-size: 1.35rem;
+        font-size: 1.4rem;
     }
 
     #contenido-historia {
         font-size: 0.9rem;
-        line-height: 1.6;
+        line-height: 1.65;
     }
 
-    /* Mensaje final */
-
     #mensaje-final {
-        padding: 16px 10px;
-        margin: 10px auto;
-
-        border-radius: 14px;
+        padding: 18px 12px;
+        margin: 12px auto;
+        border-radius: 15px;
     }
 
     #mensaje-final h2 {
-        font-size: 1.35rem;
+        font-size: 1.45rem;
     }
 
     #mensaje-final p {
         font-size: 0.9rem;
-        line-height: 1.5;
+        line-height: 1.55;
     }
 
-    /* Pie de página */
+    #imagen-final {
+        max-height: 48vh;
+        max-height: 48dvh;
+        border-radius: 10px;
+    }
 
     footer {
-        padding-top: 6px;
-        font-size: 0.7rem;
+        padding-top: 8px;
+        font-size: 0.72rem;
     }
 }
 
-
-/* ==========================
-   14. CELULARES ESTRECHOS
-========================== */
+/* CELULARES ESTRECHOS */
 
 @media (max-width: 380px) {
-
     body {
-        padding: 8px 8px;
+        padding: 8px;
     }
 
     header h1 {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         letter-spacing: 0.5px;
+    }
+
+    header p {
+        font-size: 0.76rem;
     }
 
     #informacion-juego {
@@ -716,7 +751,7 @@ footer {
 
     #informacion-juego p {
         padding: 5px;
-        font-size: 0.68rem;
+        font-size: 0.67rem;
     }
 
     #reiniciar-juego,
@@ -727,7 +762,6 @@ footer {
     }
 
     #tablero-memoria {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 3px;
     }
 
@@ -742,36 +776,40 @@ footer {
     #modal-historia {
         padding: 14px;
     }
+
+    #titulo-historia {
+        font-size: 1.25rem;
+    }
+
+    #contenido-historia {
+        font-size: 0.86rem;
+    }
 }
 
+/* PANTALLAS BAJAS */
 
-/* ==========================
-   15. PANTALLAS BAJAS
-========================== */
-
-@media (max-height: 750px) {
-
+@media (max-height: 750px) and (min-width: 601px) {
     body {
         padding-top: 6px;
         padding-bottom: 6px;
     }
 
     header {
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     header h1 {
         font-size: clamp(1.3rem, 3vw, 2.3rem);
-        margin-bottom: 2px;
+        margin-bottom: 3px;
     }
 
     #informacion-juego {
-        margin-bottom: 7px;
-        padding: 6px;
+        margin-bottom: 8px;
+        padding: 7px;
     }
 
     #tablero-memoria {
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     footer {
@@ -779,13 +817,9 @@ footer {
     }
 }
 
-
-/* ==========================
-   16. ACCESIBILIDAD
-========================== */
+/* ACCESIBILIDAD */
 
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {

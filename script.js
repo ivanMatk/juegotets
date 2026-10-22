@@ -1,370 +1,353 @@
-// ========================================
-// SARMIENTO TEST - MEMO TEST
-// ========================================
 
-// 1. ELEMENTOS DEL HTML
+document.addEventListener("DOMContentLoaded", () => {
+    const tablero = document.getElementById("tablero-memoria");
+    const cartas = Array.from(tablero.querySelectorAll(".carta"));
 
-const tablero = document.getElementById("tablero-memoria");
+    const movimientosTexto = document.getElementById("movimientos");
+    const parejasTexto = document.getElementById("parejas-encontradas");
 
-const movimientosTexto = document.getElementById("movimientos");
-const parejasTexto = document.getElementById("parejas-encontradas");
+    const botonReiniciar = document.getElementById("reiniciar-juego");
+    const botonCerrarHistoria = document.getElementById("cerrar-historia");
+    const botonContinuar = document.getElementById("continuar-juego");
 
-const modalHistoria = document.getElementById("modal-historia");
-const imagenHistoria = document.getElementById("imagen-historia");
-const tituloHistoria = document.getElementById("titulo-historia");
-const textoHistoria = document.getElementById("texto-historia");
+    const modalHistoria = document.getElementById("modal-historia");
+    const imagenHistoria = document.getElementById("imagen-historia");
+    const tituloHistoria = document.getElementById("titulo-historia");
+    const contenidoHistoria = document.getElementById("contenido-historia");
 
-const botonCerrar = document.getElementById("cerrar-historia");
-const botonContinuar = document.getElementById("continuar-juego");
-const botonReiniciar = document.getElementById("reiniciar-juego");
-const botonJugarDeNuevo = document.getElementById("jugar-de-nuevo");
+    const mensajeFinal = document.getElementById("mensaje-final");
+    const botonJugarDeNuevo = document.getElementById("jugar-de-nuevo");
 
-const mensajeFinal = document.getElementById("mensaje-final");
+    const TOTAL_PAREJAS = 6;
+    const IMAGEN_FINAL = "imagenes/capitansarmiento2.jpg";
 
+    let primeraCarta = null;
+    let segundaCarta = null;
+    let movimientos = 0;
+    let parejasEncontradas = 0;
+    let bloqueado = false;
+    let historiaPendiente = null;
+    let partidaTerminada = false;
 
-// ========================================
-// 2. HISTORIAS DE LAS IMÁGENES
-// ========================================
+    const historias = {
+        balneario: {
+            titulo: "El antiguo balneario",
+            imagen: "imagenes/balneario.jpg",
+            texto: `
+                <p><strong>Un lugar para encontrarse.</strong></p>
+                <p>El balneario forma parte de los recuerdos de distintas generaciones. Sus espacios fueron escenario de encuentros, paseos y momentos compartidos por vecinos y visitantes.</p>
+                <p>Esta fotografía nos invita a recuperar una parte de la historia de nuestra comunidad.</p>
+            `
+        },
+        cine: {
+            titulo: "El antiguo cine",
+            imagen: "imagenes/cine.jpg",
+            texto: `
+                <p><strong>Una pantalla llena de recuerdos.</strong></p>
+                <p>Los antiguos cines eran lugares de encuentro donde familias y amigos compartían películas, emociones y momentos inolvidables.</p>
+                <p>Sus fotografías nos ayudan a recordar cómo se vivía el entretenimiento en otras épocas.</p>
+            `
+        },
+        elisa: {
+            titulo: "La historia de Elisa",
+            imagen: "imagenes/elisa.jpg",
+            texto: `
+                <p><strong>Un rostro que forma parte de la memoria.</strong></p>
+                <p>Detrás de cada fotografía existe una historia personal. Las experiencias y los recuerdos de las personas forman parte de la identidad de una comunidad.</p>
+                <p>Esta imagen nos invita a conocer y valorar la historia de Elisa.</p>
+            `
+        },
+        monumento: {
+            titulo: "El monumento histórico",
+            imagen: "imagenes/monumento.jpg",
+            texto: `
+                <p><strong>Un símbolo de nuestra historia.</strong></p>
+                <p>Los monumentos conservan huellas del pasado y nos ayudan a recordar acontecimientos y personas importantes.</p>
+                <p>Conocerlos es una forma de mantener viva la memoria para las nuevas generaciones.</p>
+            `
+        },
+        museo: {
+            titulo: "El museo",
+            imagen: "imagenes/museo.jpg",
+            texto: `
+                <p><strong>Un espacio para conservar recuerdos.</strong></p>
+                <p>Los museos reúnen objetos, fotografías y testimonios que permiten conocer la historia de una comunidad.</p>
+                <p>Cada pieza puede revelar costumbres y formas de vida de otras épocas.</p>
+            `
+        },
+        plaza: {
+            titulo: "La plaza de la ciudad",
+            imagen: "imagenes/plaza.jpg",
+            texto: `
+                <p><strong>El corazón de la comunidad.</strong></p>
+                <p>Las plazas son espacios de reunión, celebraciones, juegos y encuentros. A lo largo del tiempo guardan recuerdos de distintas generaciones.</p>
+                <p>En ellas, la vida cotidiana y la historia se encuentran.</p>
+            `
+        }
+    };
 
-const historias = {
-
-    balneario: {
-        titulo: "El balneario",
-        imagen: "imagenes/balneario.jpg",
-        texto: "Aquí puedes contar la historia del balneario de San Francisco, su origen, la importancia que tuvo para la comunidad y los recuerdos que guarda este lugar."
-    },
-
-    cine: {
-        titulo: "El cine",
-        imagen: "imagenes/cine.jpg",
-        texto: "El 20 de septiembre de 1889, Pedro Diale y un núcleo de quince compatriotas fundaron formalmente la Sociedad Italiana de Socorros Mutuos Roma Intangibile — la mutual más antigua de Capitán Sarmiento. Su propósito era claro: llenar el vacío y la nostalgia de la tierra natal, y construir una red de protección ante las necesidades sanitarias de una colectividad que echaba raíces en tierras bonaerenses."
-    },
-
-    elisa: {
-        titulo: "Elisa",
-        imagen: "imagenes/elisa.jpg",
-        texto: "Estancia La Elisa, ubicada en el partido de Capitán Sarmiento (Buenos Aires), es un histórico casco de estilo palaciego italiano cuya construcción fue concluida en 1887.  Fue encargada por el expresidente de la Nación Miguel Juárez Celman, quien bautizó la residencia en honor a su esposa, Elisa Funes (cuñada del expresidente Julio Argentino Roca)."
-    },
-
-    monumento: {
-        titulo: "El monumento",
-        imagen: "imagenes/monumento.jpg",
-        texto: "Aquí puedes contar cuándo se construyó este monumento, a quién o a qué conmemora y qué significado tiene para los habitantes de San Francisco."
-    },
-
-    museo: {
-        titulo: "El museo",
-        imagen: "imagenes/museo.jpg",
-        texto: "Aquí puedes contar la historia del museo, cómo nació, qué objetos conserva y por qué es importante preservar el patrimonio histórico y cultural de la comunidad."
-    },
-
-    plaza: {
-        titulo: "La plaza",
-        imagen: "imagenes/plaza.jpg",
-        texto: "Aquí puedes contar la historia de esta plaza, cómo era antiguamente, qué acontecimientos ocurrieron allí y cómo se convirtió en un punto de encuentro para la comunidad."
+    // Guardar la posición original de cada carta.
+    // Las parejas reveladas ocuparán estas posiciones
+    // para formar una imagen completa de 6 columnas x 2 filas.
+    function prepararTablero() {
+        cartas.forEach((carta, indice) => {
+            carta.dataset.posicionFinal = indice;
+        });
     }
 
-};
-
-
-// ========================================
-// 3. VARIABLES DEL JUEGO
-// ========================================
-
-let primeraCarta = null;
-let segundaCarta = null;
-
-let bloqueoTablero = false;
-let movimientos = 0;
-let parejasEncontradas = 0;
-
-let juegoTerminado = false;
-
-
-// ========================================
-// 4. PREPARAR LAS CARTAS
-// ========================================
-
-function prepararCartas() {
-
-    const cartas = tablero.querySelectorAll(".carta");
-
-    cartas.forEach(carta => {
-
-        const id = carta.dataset.id;
-        const imagen = carta.querySelector("img");
-
-        // Guardamos la imagen correspondiente.
-        carta.dataset.imagen = historias[id].imagen;
-
-        // Todas las cartas empiezan ocultas visualmente.
-        imagen.src = historias[id].imagen;
-        imagen.alt = "Carta oculta";
-
-        carta.classList.remove("volteada", "encontrada");
-        carta.disabled = false;
-
-        // Evitamos registrar el mismo evento más de una vez.
-        carta.removeEventListener("click", voltearCarta);
-        carta.addEventListener("click", voltearCarta);
-
-    });
-
-}
-
-
-// ========================================
-// 5. VOLTEAR UNA CARTA
-// ========================================
-
-function voltearCarta() {
-
-    if (bloqueoTablero || juegoTerminado) {
-        return;
+    function actualizarContadores() {
+        movimientosTexto.textContent = movimientos;
+        parejasTexto.textContent = parejasEncontradas;
     }
 
-    if (this === primeraCarta) {
-        return;
+    function mezclarCartas() {
+        const mezcladas = [...cartas];
+
+        for (let i = mezcladas.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [mezcladas[i], mezcladas[j]] = [mezcladas[j], mezcladas[i]];
+        }
+
+        mezcladas.forEach(carta => tablero.appendChild(carta));
     }
 
-    if (
-        this.classList.contains("volteada") ||
-        this.classList.contains("encontrada")
-    ) {
-        return;
+    function mostrarCarta(carta) {
+        carta.classList.add("volteada");
+        carta.setAttribute("aria-pressed", "true");
     }
 
-    const id = this.dataset.id;
-    const imagen = this.querySelector("img");
-
-    // Mostramos la imagen.
-    imagen.src = historias[id].imagen;
-    imagen.alt = historias[id].titulo;
-
-    this.classList.add("volteada");
-
-    // Guardamos la primera carta seleccionada.
-    if (primeraCarta === null) {
-        primeraCarta = this;
-        return;
+    function ocultarCarta(carta) {
+        carta.classList.remove("volteada");
+        carta.setAttribute("aria-pressed", "false");
     }
 
-    // Guardamos la segunda carta.
-    segundaCarta = this;
+    function mostrarHistoria(id) {
+        const historia = historias[id];
 
-    movimientos++;
-    movimientosTexto.textContent = movimientos;
+        if (!historia) {
+            convertirParejaEnRompecabezas();
+            return;
+        }
 
-    comprobarPareja();
+        tituloHistoria.textContent = historia.titulo;
+        imagenHistoria.src = historia.imagen;
+        imagenHistoria.alt = historia.titulo;
+        contenidoHistoria.innerHTML = historia.texto;
 
-}
-
-
-// ========================================
-// 6. COMPROBAR SI LAS CARTAS COINCIDEN
-// ========================================
-
-function comprobarPareja() {
-
-    const coinciden =
-        primeraCarta.dataset.id === segundaCarta.dataset.id;
-
-    if (coinciden) {
-
-        bloquearPareja();
-
-    } else {
-
-        ocultarCartas();
-
+        if (typeof modalHistoria.showModal === "function") {
+            modalHistoria.showModal();
+        } else {
+            modalHistoria.setAttribute("open", "");
+        }
     }
 
-}
+    function cerrarHistoria() {
+        if (modalHistoria.open && typeof modalHistoria.close === "function") {
+            modalHistoria.close();
+        } else {
+            modalHistoria.removeAttribute("open");
+        }
 
-
-// ========================================
-// 7. PAREJA CORRECTA
-// ========================================
-
-function bloquearPareja() {
-
-    bloqueoTablero = true;
-
-    primeraCarta.classList.add("encontrada");
-    segundaCarta.classList.add("encontrada");
-
-    primeraCarta.disabled = true;
-    segundaCarta.disabled = true;
-
-    parejasEncontradas++;
-
-    parejasTexto.textContent = parejasEncontradas;
-
-    // Identificamos la historia de la pareja encontrada.
-    const idHistoria = primeraCarta.dataset.id;
-
-    // Abrimos la ventana con su historia.
-    mostrarHistoria(idHistoria);
-
-    // Comprobamos si el jugador terminó el juego.
-    if (parejasEncontradas === Object.keys(historias).length) {
-
-        juegoTerminado = true;
-
+        convertirParejaEnRompecabezas();
     }
 
-}
+    // Revelar la pareja después de que se leyó su historia.
+    function convertirParejaEnRompecabezas() {
+        if (!historiaPendiente) return;
 
+        const pareja = historiaPendiente;
+        historiaPendiente = null;
 
-// ========================================
-// 8. MOSTRAR LA HISTORIA
-// ========================================
+        pareja.forEach(carta => {
+            carta.classList.remove("volteada");
+            carta.classList.add("encontrada", "pieza-rompecabezas");
+            carta.disabled = true;
+            carta.setAttribute("aria-pressed", "true");
 
-function mostrarHistoria(id) {
+            const imagen = carta.querySelector("img");
+            if (imagen) {
+                imagen.alt = "Pieza descubierta del rompecabezas";
+            }
+        });
 
-    const historia = historias[id];
+        // Las cartas descubiertas muestran fragmentos de la foto final.
+        // El CSS usa las coordenadas para recortar la imagen.
+        pareja.forEach(carta => {
+            const posicion = Number(carta.dataset.posicionFinal);
+            const columna = posicion % 6;
+            const fila = Math.floor(posicion / 6);
 
-    if (!historia) {
-        return;
+            carta.style.setProperty("--pieza-x", `${columna * 20}%`);
+            carta.style.setProperty("--pieza-y", `${fila * 100}%`);
+
+            const imagen = carta.querySelector("img");
+            if (imagen) {
+                imagen.src = IMAGEN_FINAL;
+                imagen.style.objectPosition = `${columna * 20}% ${fila * 100}%`;
+            }
+        });
+
+        comprobarFinal();
     }
 
-    imagenHistoria.src = historia.imagen;
-    imagenHistoria.alt = historia.titulo;
+    function seleccionarCarta(carta) {
+        if (
+            bloqueado ||
+            partidaTerminada ||
+            historiaPendiente ||
+            carta.disabled ||
+            carta.classList.contains("encontrada") ||
+            carta.classList.contains("volteada")
+        ) {
+            return;
+        }
 
-    tituloHistoria.textContent = historia.titulo;
-    textoHistoria.textContent = historia.texto;
+        mostrarCarta(carta);
 
-    if (!modalHistoria.open) {
-        modalHistoria.showModal();
+        if (!primeraCarta) {
+            primeraCarta = carta;
+            return;
+        }
+
+        segundaCarta = carta;
+        movimientos++;
+        actualizarContadores();
+        comprobarPareja();
     }
 
-}
+    function comprobarPareja() {
+        bloqueado = true;
 
+        const idPrimera = primeraCarta.dataset.id;
+        const idSegunda = segundaCarta.dataset.id;
 
-// ========================================
-// 9. CERRAR LA VENTANA Y CONTINUAR
-// ========================================
+        if (idPrimera === idSegunda) {
+            historiaPendiente = [primeraCarta, segundaCarta];
 
-function cerrarHistoria() {
+            parejasEncontradas++;
+            actualizarContadores();
 
-    if (modalHistoria.open) {
-        modalHistoria.close();
+            primeraCarta = null;
+            segundaCarta = null;
+
+            mostrarHistoria(idPrimera);
+            bloqueado = false;
+            return;
+        }
+
+        const cartaUno = primeraCarta;
+        const cartaDos = segundaCarta;
+
+        setTimeout(() => {
+            ocultarCarta(cartaUno);
+            ocultarCarta(cartaDos);
+
+            primeraCarta = null;
+            segundaCarta = null;
+            bloqueado = false;
+        }, 900);
     }
 
-    // Liberamos el tablero después de cerrar la historia.
-    primeraCarta = null;
-    segundaCarta = null;
-    bloqueoTablero = false;
+    function comprobarFinal() {
+        if (parejasEncontradas !== TOTAL_PAREJAS) return;
 
-    // Si se encontraron todas las parejas, mostramos
-    // el mensaje final después de cerrar la última historia.
-    if (juegoTerminado) {
+        partidaTerminada = true;
+        tablero.style.display = "none";
+
+        let imagenFinal = document.getElementById("imagen-final");
+
+        if (!imagenFinal) {
+            imagenFinal = document.createElement("img");
+            imagenFinal.id = "imagen-final";
+            imagenFinal.alt = "Fotografía completa del Capitán Sarmiento";
+
+            imagenFinal.style.display = "block";
+            imagenFinal.style.width = "100%";
+            imagenFinal.style.maxWidth = "700px";
+            imagenFinal.style.maxHeight = "65vh";
+            imagenFinal.style.objectFit = "contain";
+            imagenFinal.style.margin = "0 auto 20px";
+            imagenFinal.style.borderRadius = "14px";
+            imagenFinal.style.border = "3px solid #FFD166";
+
+            const titulo = mensajeFinal.querySelector("h2");
+            mensajeFinal.insertBefore(imagenFinal, titulo);
+        }
+
+        imagenFinal.src = IMAGEN_FINAL;
         mensajeFinal.hidden = false;
+
+        mensajeFinal.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
     }
 
-}
+    function reiniciarJuego() {
+        if (modalHistoria.open && typeof modalHistoria.close === "function") {
+            modalHistoria.close();
+        } else {
+            modalHistoria.removeAttribute("open");
+        }
 
-botonCerrar.addEventListener("click", cerrarHistoria);
-
-botonContinuar.addEventListener("click", cerrarHistoria);
-
-
-// ========================================
-// 10. OCULTAR LAS CARTAS INCORRECTAS
-// ========================================
-
-function ocultarCartas() {
-
-    bloqueoTablero = true;
-
-    setTimeout(() => {
-
-        const imagenPrimera = primeraCarta.querySelector("img");
-        const imagenSegunda = segundaCarta.querySelector("img");
-
-        imagenPrimera.alt = "Carta oculta";
-        imagenSegunda.alt = "Carta oculta";
-
-        // Quitamos la clase que muestra las imágenes.
-        primeraCarta.classList.remove("volteada");
-        segundaCarta.classList.remove("volteada");
-
+        movimientos = 0;
+        parejasEncontradas = 0;
         primeraCarta = null;
         segundaCarta = null;
+        bloqueado = false;
+        historiaPendiente = null;
+        partidaTerminada = false;
 
-        bloqueoTablero = false;
+        mensajeFinal.hidden = true;
+        tablero.style.display = "";
 
-    }, 1000);
+        const imagenFinal = document.getElementById("imagen-final");
+        if (imagenFinal) imagenFinal.remove();
 
-}
+        cartas.forEach(carta => {
+            carta.classList.remove(
+                "volteada",
+                "encontrada",
+                "pieza-rompecabezas"
+            );
 
+            carta.disabled = false;
+            carta.setAttribute("aria-pressed", "false");
 
-// ========================================
-// 11. MEZCLAR LAS CARTAS
-// ========================================
+            const imagen = carta.querySelector("img");
+            if (imagen) {
+                imagen.src = `imagenes/${carta.dataset.id}.jpg`;
+                imagen.style.objectPosition = "center";
+                imagen.alt = carta.dataset.id;
+            }
+        });
 
-function mezclarCartas() {
-
-    const cartas = Array.from(
-        tablero.querySelectorAll(".carta")
-    );
-
-    for (let i = cartas.length - 1; i > 0; i--) {
-
-        const j = Math.floor(Math.random() * (i + 1));
-
-        [cartas[i], cartas[j]] = [cartas[j], cartas[i]];
-
+        actualizarContadores();
+        mezclarCartas();
     }
 
     cartas.forEach(carta => {
-        tablero.appendChild(carta);
+        carta.setAttribute("aria-pressed", "false");
+
+        carta.addEventListener("click", () => {
+            seleccionarCarta(carta);
+        });
     });
 
-}
+    botonCerrarHistoria.addEventListener("click", cerrarHistoria);
+    botonContinuar.addEventListener("click", cerrarHistoria);
 
+    // Si se cierra con Escape, revelar la pareja igualmente.
+    modalHistoria.addEventListener("close", () => {
+        if (historiaPendiente) {
+            convertirParejaEnRompecabezas();
+        }
+    });
 
-// ========================================
-// 12. REINICIAR EL JUEGO
-// ========================================
+    botonReiniciar.addEventListener("click", reiniciarJuego);
+    botonJugarDeNuevo.addEventListener("click", reiniciarJuego);
 
-function reiniciarJuego() {
-
-    if (modalHistoria.open) {
-        modalHistoria.close();
-    }
-
-    primeraCarta = null;
-    segundaCarta = null;
-
-    bloqueoTablero = false;
-    movimientos = 0;
-    parejasEncontradas = 0;
-
-    juegoTerminado = false;
-
-    movimientosTexto.textContent = "0";
-    parejasTexto.textContent = "0";
-
-    mensajeFinal.hidden = true;
-
-    prepararCartas();
+    prepararTablero();
     mezclarCartas();
-
-}
-
-
-// ========================================
-// 13. BOTONES DE REINICIO
-// ========================================
-
-botonReiniciar.addEventListener("click", reiniciarJuego);
-
-botonJugarDeNuevo.addEventListener("click", reiniciarJuego);
-
-
-// ========================================
-// 14. INICIAR EL JUEGO
-// ========================================
-
-reiniciarJuego();
+    actualizarContadores();
+});
